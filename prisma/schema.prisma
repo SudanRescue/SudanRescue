@@ -17,9 +17,18 @@ model SafetyUpdate {
 
 model ServicePost {
   id            Int      @id @default(autoincrement())
-  postType      String   // 'request' or 'offer'
+  postType      String // 'request' or 'offer'
   service       String
   location      String
+  contactNumber String
+  createdAt     DateTime @default(now())
+}
+
+model TripPost {
+  id            Int      @id @default(autoincrement())
+  postType      String
+  origin        String
+  destination   String
   contactNumber String
   createdAt     DateTime @default(now())
 }

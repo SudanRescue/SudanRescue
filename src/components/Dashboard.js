@@ -34,30 +34,30 @@ function Dashboard() {
       <div className="flex space-x-4 mb-6">
         <button
           onClick={() => setActiveTab("safetyUpdates")}
-          className={`px-4 py-2 rounded ${
+          className={`px-4 py-2 rounded transition-colors duration-200 ease-in ${
             activeTab === "safetyUpdates"
               ? "bg-blue-600 text-white"
-              : "bg-white text-blue-600"
+              : "bg-white text-blue-600 border border-blue-600 hover:bg-blue-600 hover:text-white"
           }`}
         >
           تحديثات حالة الأمن{" "}
         </button>
         <button
           onClick={() => setActiveTab("requests")}
-          className={`px-4 py-2 rounded ${
+          className={`px-4 py-2 rounded transition-colors duration-200 ease-in ${
             activeTab === "requests"
               ? "bg-blue-600 text-white"
-              : "bg-white text-blue-600"
+              : "bg-white text-blue-600 border border-blue-600 hover:bg-blue-600 hover:text-white"
           }`}
         >
           حوجة
         </button>
         <button
           onClick={() => setActiveTab("offers")}
-          className={`px-4 py-2 rounded ${
+          className={`px-4 py-2 rounded transition-colors duration-200 ease-in ${
             activeTab === "offers"
               ? "bg-blue-600 text-white"
-              : "bg-white text-blue-600"
+              : "bg-white text-blue-600 border border-blue-600 hover:bg-blue-600 hover:text-white"
           }`}
         >
           وفرة
@@ -72,7 +72,10 @@ function Dashboard() {
               <p> الولاية-المكان-العنوان : {update.location}</p>
               <p>الوضع الأمني: {update.status}</p>
               <p>التفاصيل : {update.description}</p>
-              <p> {formatDate(update.createdAt)} :وقت النشر </p>
+              <p className="text-gray-600">
+                {" "}
+                {formatDate(update.createdAt)} :وقت النشر{" "}
+              </p>
             </div>
           ))}
         </section>
@@ -88,7 +91,10 @@ function Dashboard() {
                 <p>التفاصيل/الخدمة : {post.service}</p>
                 <p>ولاية-المكان-العنوان: {post.location}</p>
                 <p>رقم التلفون : {post.contactNumber}</p>
-                <p> {formatDate(post.createdAt)}:وقت النشر</p>
+                <p className="text-gray-600">
+                  {" "}
+                  {formatDate(post.createdAt)}:وقت النشر
+                </p>
               </div>
             ))}
         </section>
@@ -104,7 +110,10 @@ function Dashboard() {
                 <p>التفاصيل/الخدمة : {post.service}</p>
                 <p>ولاية-المكان-العنوان : {post.location}</p>
                 <p>رقم التلفون : {post.contactNumber}</p>
-                <p> {formatDate(post.createdAt)} :وقت النشر</p>
+                <p className="text-gray-600">
+                  {" "}
+                  {formatDate(post.createdAt)} :وقت النشر
+                </p>
               </div>
             ))}
         </section>
