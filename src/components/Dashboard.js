@@ -15,6 +15,18 @@ function Dashboard() {
     return <div>Loading...</div>;
   }
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return new Intl.DateTimeFormat("en-US", {
+      timeZone: "Africa/Khartoum",
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    }).format(date);
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">Public Dashboard</h1>
@@ -60,7 +72,7 @@ function Dashboard() {
               <p> ولاية-المكان-العنوان : {update.location}</p>
               <p>الوضع الأمني: {update.status}</p>
               <p>التفاصيل : {update.description}</p>
-              <p> {new Date(update.createdAt).toLocaleString()}:وقت النشر </p>
+              <p> {formatDate(update.createdAt)}:وقت النشر </p>
             </div>
           ))}
         </section>
@@ -76,7 +88,7 @@ function Dashboard() {
                 <p>التفاصيل/الخدمة : {post.service}</p>
                 <p>ولاية-المكان-العنوان: {post.location}</p>
                 <p>رقم التلفون : {post.contactNumber}</p>
-                <p> {new Date(post.createdAt).toLocaleString()}:وقت النشر</p>
+                <p> {formatDate(post.createdAt)}:وقت النشر</p>
               </div>
             ))}
         </section>
@@ -92,7 +104,7 @@ function Dashboard() {
                 <p>التفاصيل/الخدمة : {post.service}</p>
                 <p>ولاية-المكان-العنوان : {post.location}</p>
                 <p>رقم التلفون : {post.contactNumber}</p>
-                <p> {new Date(post.createdAt).toLocaleString()} :وقت النشر</p>
+                <p> {formatDate(post.createdAt)} :وقت النشر</p>
               </div>
             ))}
         </section>
