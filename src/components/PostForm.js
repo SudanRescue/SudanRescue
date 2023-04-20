@@ -52,14 +52,14 @@ function PostForm() {
           onChange={(e) => setPostType(e.target.value)}
           className="block w-full p-2 border border-gray-300 rounded"
         >
-          <option value="safetyUpdate"> تحديث حالة الأمان</option>
+          <option value="safetyUpdate"> تحديث حالة الأمن</option>
           <option value="servicePost">نداء </option>
         </select>
       </div>
 
       <div className="mb-4">
         <label className="block text-sm font-medium text-gray-700 mb-2">
-          ولاية-المكان-العنوان
+        الولاية-المكان-العنوان
         </label>
         <input
           type="text"

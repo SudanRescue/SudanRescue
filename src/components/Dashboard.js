@@ -29,7 +29,7 @@ function Dashboard() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6">Public Dashboard</h1>
+      <h1 className="text-3xl font-bold mb-6">المشاركات العامة</h1>
 
       <div className="flex space-x-4 mb-6">
         <button
@@ -40,7 +40,7 @@ function Dashboard() {
               : "bg-white text-blue-600"
           }`}
         >
-          تحديثات حالة الأمان{" "}
+          تحديثات حالة الأمن{" "}
         </button>
         <button
           onClick={() => setActiveTab("requests")}
@@ -66,13 +66,13 @@ function Dashboard() {
 
       {activeTab === "safetyUpdates" && (
         <section>
-          <h2 className="text-2xl font-semibold mb-4">تحديثات حالة الأمان </h2>
+          <h2 className="text-2xl font-semibold mb-4">تحديثات حالة الأمن </h2>
           {data.safetyUpdates.map((update) => (
             <div key={update.id} className="bg-white p-4 mb-4 rounded shadow">
-              <p> ولاية-المكان-العنوان : {update.location}</p>
+              <p> الولاية-المكان-العنوان : {update.location}</p>
               <p>الوضع الأمني: {update.status}</p>
               <p>التفاصيل : {update.description}</p>
-              <p> {formatDate(update.createdAt)}:وقت النشر </p>
+              <p> {formatDate(update.createdAt)} :وقت النشر </p>
             </div>
           ))}
         </section>
