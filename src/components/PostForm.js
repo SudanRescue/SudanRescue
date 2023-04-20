@@ -1,48 +1,150 @@
-import React, { useState } from 'react';
+import { useState } from "react";
 
-function PostForm({ onSubmit }) {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+function PostForm() {
+  const [postType, setPostType] = useState("safetyUpdate");
+  const [location, setLocation] = useState("");
+  const [status, setStatus] = useState("");
+  const [description, setDescription] = useState("");
+  const [service, setService] = useState("");
+  const [servicePostType, setServicePostType] = useState("request");
+  const [contactNumber, setContactNumber] = useState("");
 
-  const handleSubmitForm = (e) => {
-    e.preventDefault();
-    onSubmit(e, title, content);
-    setTitle('');
-    setContent('');
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const data = {
+      location,
+    };
+
+    if (postType === "safetyUpdate") {
+      data.status = status;
+      data.description = description;
+    } else {
+      data.postType = servicePostType;
+      data.service = service;
+      data.contactNumber = contactNumber;
+    }
+
+    try {
+      const response = await fetch("/api/makeposts", {
+        method: "POST",
+        body: JSON.stringify({ type: postType, data }),
+      });
+
+      if (response.ok) {
+        alert("Post submitted successfully!");
+      } else {
+        alert("Failed to submit the post.");
+      }
+    } catch (error) {
+      alert("An error occurred while submitting the post.");
+    }
   };
 
   return (
-    <form onSubmit={handleSubmitForm} className="mt-4">
-      <label htmlFor="title" className="block text-sm font-medium text-gray-700">
-        Post Title
-      </label>
-      <div className="mt-1">
+    <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md">
+      <div className="mb-4">
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          نوع المنشور{" "}
+        </label>
+        <select
+          value={postType}
+          onChange={(e) => setPostType(e.target.value)}
+          className="block w-full p-2 border border-gray-300 rounded"
+        >
+          <option value="safetyUpdate"> تحديث حالة الأمان</option>
+          <option value="servicePost">نداء </option>
+        </select>
+      </div>
+
+      <div className="mb-4">
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          ولاية-المكان-العنوان
+        </label>
         <input
-          id="title"
-          name="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
+          type="text"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+          required
+          className="block w-full p-2 border border-gray-300 rounded"
         />
       </div>
-      <label htmlFor="content" className="block text-sm font-medium text-gray-700 mt-4">
-        Post Content
-      </label>
-      <div className="mt-1">
-        <textarea
-          id="content"
-          name="content"
-          rows={3}
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-      </div>
+
+      {postType === "safetyUpdate" ? (
+        <>
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              الوضع الأمني في المنطقة{" "}
+            </label>
+            <input
+              type="text"
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+              required
+              className="block w-full p-2 border border-gray-300 rounded"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              التفاصيل{" "}
+            </label>
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className="block w-full p-2 border border-gray-300 rounded resize-none"
+            />
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              نوع النداء{" "}
+            </label>
+            <select
+              value={servicePostType}
+              onChange={(e) => setServicePostType(e.target.value)}
+              className="block w-full p-2 border border-gray-300 rounded"
+            >
+              <option value="request">حوجة</option>
+              <option value="offer">وفرة</option>
+            </select>
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              التفاصيل/الخدمة{" "}
+            </label>
+            <input
+              type="text"
+              value={service}
+              onChange={(e) => setService(e.target.value)}
+              required
+              className="block w-full p-2 border border-gray-300 rounded"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              رقم التلفون{" "}
+            </label>
+            <input
+              type="tel"
+              value={contactNumber}
+              onChange={(e) => setContactNumber(e.target.value)}
+              required
+              className="block w-full p-2 border border-gray-300 rounded"
+            />
+          </div>
+        </>
+      )}
+
       <button
         type="submit"
-        className="mt-3 w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
       >
-        Create Post
+        إضافة{" "}
       </button>
     </form>
   );
