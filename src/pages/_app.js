@@ -1,5 +1,13 @@
-import '@/styles/globals.css'
+// src/pages/_app.js
+import '@/styles/globals.css';
+import ErrorBoundary from '@/components/ErrorBoundary';
 
-export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />
+function App({ Component, pageProps }) {
+  return (
+    <ErrorBoundary>
+      <Component {...pageProps} />
+    </ErrorBoundary>
+  );
 }
+
+export default App;
