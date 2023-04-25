@@ -1,4 +1,3 @@
-// pages/api/recent-posts.js
 import prisma from '../../lib/prisma'
 
 export default async function handler(req, res) {
@@ -14,7 +13,13 @@ export default async function handler(req, res) {
         take: 10,
       })
 
-      res.status(200).json({ safetyUpdates, servicePosts })
+      // Fetch busTrips records
+      const busTrips = await prisma.busTrip.findMany({
+        orderBy: { createdAt: 'desc' },
+        take: 10,
+      })
+
+      res.status(200).json({ safetyUpdates, servicePosts, busTrips })
     } catch (error) {
       res.status(400).json({ error: 'Failed to fetch recent posts' })
     }

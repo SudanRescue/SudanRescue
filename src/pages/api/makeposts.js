@@ -1,21 +1,27 @@
-// pages/api/posts.js
-import prisma from '../../lib/prisma'
+import prisma from "../../lib/prisma";
 
 export default async function handler(req, res) {
-  if (req.method === 'POST') {
-    const postData = JSON.parse(req.body)
+  if (req.method === "POST") {
     try {
-      let newPost
-      if (postData.type === 'safetyUpdate') {
-        newPost = await prisma.safetyUpdate.create({ data: postData.data })
+      const { type, data } = JSON.parse(req.body);
+
+      let result;
+
+      if (type === "safetyUpdate") {
+        result = await prisma.safetyUpdate.create({ data });
+      } else if (type === "servicePost") {
+        result = await prisma.servicePost.create({ data });
       } else {
-        newPost = await prisma.servicePost.create({ data: postData.data })
-      }
-      res.status(201).json(newPost)
+        // BusTrip
+        data.departureDateTime = new Date(data.departureDateTime);
+        result = await prisma.busTrip.create({ data });      }
+
+      res.status(200).json({ message: "Post created successfully", result });
     } catch (error) {
-      res.status(400).json({ error: 'Failed to create post' })
+      console.error("Error creating post:", error);
+      res.status(500).json({ message: "Failed to create post" });
     }
   } else {
-    res.status(405).json({ error: 'Method not allowed' })
+    res.status(405).json({ message: "Method not allowed" });
   }
 }
