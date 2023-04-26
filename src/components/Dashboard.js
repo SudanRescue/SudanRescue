@@ -99,7 +99,10 @@ function Dashboard() {
               <p> الولاية-المكان-العنوان : {update.location}</p>
               <p>الوضع الأمني: {update.status}</p>
               <p>التفاصيل : {update.description}</p>
-              <p> {formatDate(update.createdAt)} :وقت النشر </p>
+              <p className="text-gray-600">
+                {" "}
+                {formatDate(update.createdAt)} :وقت النشر{" "}
+              </p>
             </div>
           ))}
         </section>
@@ -115,7 +118,10 @@ function Dashboard() {
                 <p>التفاصيل/الخدمة : {post.service}</p>
                 <p>ولاية-المكان-العنوان: {post.location}</p>
                 <p>رقم التلفون : {post.contactNumber}</p>
-                <p> {formatDate(post.createdAt)}:وقت النشر</p>
+                <p className="text-gray-600">
+                  {" "}
+                  {formatDate(post.createdAt)}:وقت النشر
+                </p>
               </div>
             ))}
         </section>
